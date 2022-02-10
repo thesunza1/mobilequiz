@@ -1,6 +1,7 @@
 import LoginLayout from 'layouts/LoginLayout.vue';
 import Login from 'pages/Login.vue' ;
 import ExamStaff from 'pages/ExamStaff.vue';
+import GoExam from 'pages/GoExam.vue' ;
 
 
 const routes = [
@@ -10,6 +11,7 @@ const routes = [
     children: [
       { path: '', component: () => import('pages/Index.vue') },
       { path: 'examStaff/:contestId', component: ExamStaff , name: 'examStaff'},
+      {path: 'toExam/:examStaffId', component: GoExam, name: 'toExam' },
     ],
     meta: {
       authentication: true,

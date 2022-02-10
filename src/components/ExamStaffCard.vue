@@ -1,7 +1,6 @@
 <template>
   <q-card
     clickable
-    @click="onclick(exam?.examstaffs[0].id)"
     class="my-card g-border-radius g-card-width q-mt-md"
   >
     <q-card-section vertical class="">
@@ -26,7 +25,7 @@
               color="black"
               icon="check"
               label="Thi tiếp"
-              @click="toExam(exam.examstaffs[0].id)"
+              @click="toExam()"
             />
           </div>
           <div>
@@ -47,7 +46,7 @@
           <q-btn
             color="black"
             label=" Bắt đầu thi"
-            @click="toExam(exam.examstaffs[0].id)"
+            @click="toExam()"
           />
         </div>
       </q-card-section>
@@ -68,6 +67,9 @@ export default {
     exam: {
       type: Object,
     },
+    index: {
+      type: Number,
+    }
   },
   methods: {
     checkTimeLimit(timeLimit) {
@@ -82,6 +84,9 @@ export default {
     timeToTime(date) {
       return sp.timeToTime(date);
     },
+    toExam() {
+      this.$emit('choseExam',this.index);
+    }
   },
 };
 </script>

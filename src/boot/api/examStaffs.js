@@ -5,7 +5,12 @@ async function get(contestId) {
   return res.data;
 }
 
+async function toExam(examStaffId) {
+  const res = await api.get('contest/exam/toExam/' + examStaffId);
+  return res.data;
+}
 
 export default {
   get,
+  toExam,
 }
