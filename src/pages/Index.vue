@@ -80,8 +80,8 @@ export default defineComponent({
     } catch (error) {
       const key = localStorage.getItem("key");
       if (this.user.id != -1 && key == null) {
-        this.$router.go();
       }
+      this.$router.go();
     }
   },
 });
