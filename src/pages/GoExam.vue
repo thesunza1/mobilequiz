@@ -1,7 +1,16 @@
 <template>
   <div>
     <div v-if="questions">
-      <q-btn color="primary" icon="check" label="OK" @click="confirm = !confirm" />
+      <div class="flex justify-end full-width">
+        <q-btn
+          color="black"
+          rounded
+          icon="check"
+          label=" Nộp bài"
+          @click="confirm = !confirm"
+          class="q-mt-sm q-mr-sm"
+        />
+      </div>
       <div v-for="(quest, index) in questions" :key="index" class="my-card">
         <div
           v-if="
@@ -10,6 +19,7 @@
           "
         >
           <q-card-section class="q-mt-lg" v-if="quest.order_relies == 1">
+            <hr class="text-primary" />
             Câu {{ quest.order_question }}:
             <div class="g-first-up g-question">
               {{ quest.question.content }}
@@ -35,13 +45,18 @@
     <q-dialog v-model="confirm" class="">
       <q-card class="g-border-radius g-card-width">
         <q-card-section class="row items-center">
-          <span class="q-ml-sm"
-            > Danh sách câu hỏi:</span
-          >
+          <span class="q-ml-sm"> Danh sách câu hỏi:</span>
         </q-card-section>
         <div v-for="i in numQuest" :key="i">
           <q-card-actions align="left" class="q-pl-lg">
-            <q-btn flat  :label="`Câu ${i}: ${isCheck(i)? 'Đã chọn' : 'Chưa chọn'}. ` " no-caps :color="isCheck(i)? 'black':'negative'" @click="toQuestion(i)" v-close-popup />
+            <q-btn
+              flat
+              :label="`Câu ${i}: ${isCheck(i) ? 'Đã chọn' : 'Chưa chọn'}. `"
+              no-caps
+              :color="isCheck(i) ? 'black' : 'negative'"
+              @click="toQuest(i)"
+              v-close-popup
+            />
           </q-card-actions>
         </div>
         <q-card-actions align="center">
@@ -78,16 +93,21 @@ export default {
   },
   methods: {
     isCheck(num) {
-      let status = 0
-      status = this.questions.findIndex((e) => e.order_question == num && e.chose ==1 );
-      if(status == -1 ) {
+      let status = 0;
+      status = this.questions.findIndex(
+        (e) => e.order_question == num && e.chose == 1
+      );
+      if (status == -1) {
         return false;
-      } else  {
+      } else {
         return true;
       }
     },
     toQuest(num) {
-
+      let du = num % this.questPerPage;
+      let addpage = du > 0 ? 1 : 0;
+      let page = (num - du) / this.questPerPage + addpage;
+      this.currentPage = page;
     },
     async chose(id, index) {
       // await this.checkChose(this.questions[index].question_id);

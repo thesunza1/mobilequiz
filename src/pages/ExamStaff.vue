@@ -3,23 +3,37 @@
     <div v-if="exams">
       <div v-for="(exam, index) in exams" :key="index">
         <div class="full-width flex flex-center">
-          <exam-staff-card @choseExam="toExam($event)" :index="index" :exam="exam"></exam-staff-card>
+          <exam-staff-card
+            @choseExam="toExam($event)"
+            :index="index"
+            :exam="exam"
+          ></exam-staff-card>
         </div>
       </div>
     </div>
     <q-dialog v-model="confirm" persistent>
-      <q-card v-if="thisExam">
+      <q-card v-if="thisExam" class="g-border-radius">
         <q-card-section class="row items-center">
           <div class="text-h6 text-primary">
-            ngày thi: {{ toDate(thisExam.created_at) }}
+            Ngày thi: {{ toDate(thisExam.created_at) }}
           </div>
           <div class="text-subtitle2">
-            thời gian thi: {{thisExam.examtime_at  }}
+            Thời gian thi: {{ thisExam.examtime_at }} phút
           </div>
         </q-card-section>
         <q-card-actions align="right">
           <q-btn flat label=" Thoát" no-caps color="negative" v-close-popup />
-          <q-btn flat label=" Bắt đầu thi" :to="{name: 'toExam', params: {examStaffId: thisExam.examstaffs[0].id}}" no-caps color="black" v-close-popup />
+          <q-btn
+            :to="{
+              name: 'toExam',
+              params: { examStaffId: thisExam.examstaffs[0].id },
+            }"
+            flat
+            label="Bắt đầu thi"
+            no-caps
+            color="black"
+            v-close-popup
+          />
         </q-card-actions>
       </q-card>
     </q-dialog>
@@ -29,19 +43,18 @@
 <script>
 import examSatffapi from "../boot/api/examStaffs";
 import ExamStaffCard from "../components/ExamStaffCard.vue";
-import sp from "../boot/sp/support"
+import sp from "../boot/sp/support";
 export default {
-  setup() {
-  },
+  setup() {},
   methods: {
     toExam(index) {
-      this.thisExam = this.exams[index] ;
+      this.thisExam = this.exams[index];
       console.log(this.thisExam);
       this.confirm = true;
     },
     toDate(date) {
       return sp.toDate(date);
-    }
+    },
   },
   components: {
     ExamStaffCard,

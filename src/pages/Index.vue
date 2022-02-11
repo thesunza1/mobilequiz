@@ -5,9 +5,8 @@
         <contest-render-card :specialContest="contest"></contest-render-card>
       </div>
     </div>
-    <q-footer class="bg-white flex flex-center">
+    <q-footer class="bg-white q-pb-sm flex flex-center">
       <q-pagination
-        flat
         v-model="currentPage"
         :max="lastPage"
         color="black"

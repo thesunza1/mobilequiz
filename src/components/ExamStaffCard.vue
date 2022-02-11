@@ -6,18 +6,19 @@
     <q-card-section vertical class="">
       <q-card-section>
         <div class="text-h6">Ngày tạo: {{ toDate(exam?.created_at) }}</div>
-        <div class="text-subtitle">tổng số câu: {{ exam?.questionnum }}</div>
-        <div>người tạo: {{ exam.staff.name }}</div>
+        <div class="text-subtitle">Tổng số câu: {{ exam?.questionnum }}</div>
+        <div>Người tạo: {{ exam.staff.name }}</div>
         <div>Thời gian: {{ exam?.examtime_at }} phút</div>
       </q-card-section>
-      <q-card-section
+      <q-card-action
+        align="right"
         v-if="exam.examstaffs[0].time_limit > 0 && exam.examstaffs[0].point < 0"
       >
         <div
           class="text-red"
           v-if="checkTimeLimit(exam.examstaffs[0].time_limit)"
         >
-          bạn đã hết thời gian làm bài
+          Bạn đã hết thời gian làm bài
         </div>
         <div v-else>
           <div class="">
@@ -26,6 +27,8 @@
               icon="check"
               label="Thi tiếp"
               @click="toExam()"
+              rounded
+              no-caps
             />
           </div>
           <div>
@@ -33,29 +36,32 @@
             {{ timeToTime(exam.examstaffs[0].time_limit) }}
           </div>
         </div>
-      </q-card-section>
-      <q-card-section
+      </q-card-action>
+      <q-card-action
+        align="right"
         v-if="
           exam?.examstaffs[0].time_limit == null
             ? true
             : false && exam?.examstaffs[0].point < 0
         "
       >
-        <div>Chưa thi</div>
+        <!-- <div>Chưa thi</div> -->
         <div>
           <q-btn
             color="black"
             label=" Bắt đầu thi"
             @click="toExam()"
+            rounded
+            no-caps
           />
         </div>
-      </q-card-section>
-      <q-card-section v-if="exam.examstaffs[0].point >= 0">
-        <div class="text-positive text-subtitle2">Đã thi</div>
+      </q-card-action>
+      <q-card-action align="right" v-if="exam.examstaffs[0].point >= 0">
+        <!-- <div class="text-positive text-subtitle2">Đã thi</div> -->
         <div class="text-positive text-subtitle2">
           Tổng điểm: {{ exam.examstaffs[0].point }}/10 điểm
         </div>
-      </q-card-section>
+      </q-card-action>
     </q-card-section>
   </q-card>
 </template>
