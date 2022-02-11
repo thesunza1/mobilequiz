@@ -1,6 +1,7 @@
 <template>
   <div>
     <div v-if="questions">
+      <q-btn color="primary" icon="check" label="OK" @click="confirm = !confirm" />
       <div v-for="(quest, index) in questions" :key="index" class="my-card">
         <div
           v-if="
@@ -31,6 +32,23 @@
     <q-footer class="bg-white flex flex-center">
       <q-pagination v-model="currentPage" :max="lastPage" />
     </q-footer>
+    <q-dialog v-model="confirm" class="">
+      <q-card class="g-border-radius g-card-width">
+        <q-card-section class="row items-center">
+          <span class="q-ml-sm"
+            > Danh sách câu hỏi:</span
+          >
+        </q-card-section>
+        <div v-for="i in numQuest" :key="i">
+          <q-card-actions align="left" class="q-pl-lg">
+            <q-btn flat  :label="`Câu ${i}: ${isCheck(i)? 'Đã chọn' : 'Chưa chọn'}. ` " no-caps :color="isCheck(i)? 'black':'negative'" @click="toQuestion(i)" v-close-popup />
+          </q-card-actions>
+        </div>
+        <q-card-actions align="center">
+          <q-btn flat label=" Nộp ngay" />
+        </q-card-actions>
+      </q-card>
+    </q-dialog>
   </div>
 </template>
 
@@ -48,6 +66,7 @@ export default {
       numQuest: 1,
       startQuest: 1,
       endQuest: 5,
+      confirm: false,
     };
   },
   watch: {
@@ -58,6 +77,18 @@ export default {
     },
   },
   methods: {
+    isCheck(num) {
+      let status = 0
+      status = this.questions.findIndex((e) => e.order_question == num && e.chose ==1 );
+      if(status == -1 ) {
+        return false;
+      } else  {
+        return true;
+      }
+    },
+    toQuest(num) {
+
+    },
     async chose(id, index) {
       // await this.checkChose(this.questions[index].question_id);
       let [unCheck, check] = await Promise.all([
@@ -76,7 +107,7 @@ export default {
           await examStaffapi.unCheck(this[index].id);
         }
       }, this.questions);
-      return {statuscode: 1};
+      return { statuscode: 1 };
     },
   },
   async created() {
