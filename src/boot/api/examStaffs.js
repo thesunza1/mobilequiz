@@ -10,7 +10,23 @@ async function toExam(examStaffId) {
   return res.data;
 }
 
+async function check(examQueRelId) {
+  const res = await api.post('exam/check', {
+    examQueRelId: examQueRelId,
+  });
+  return res.data;
+}
+
+async function unCheck(examQueRelId) {
+  const res = await api.post('exam/unCheck', {
+    examQueRelId: examQueRelId,
+  });
+  return res.data;
+}
+
 export default {
   get,
   toExam,
+  check,
+  unCheck
 }
