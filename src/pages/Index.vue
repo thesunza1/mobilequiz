@@ -1,6 +1,7 @@
 <template>
   <q-page class="flex flex-start">
     <div class="full-width">
+      <div  class="text-center text-h5 q-pt-sm"> Các kỳ thi</div>
       <div v-for="(contest, index) in contests" :key="index">
         <contest-render-card :specialContest="contest"></contest-render-card>
       </div>

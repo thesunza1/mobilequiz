@@ -4,7 +4,6 @@
       <q-toolbar>
         <q-btn color="white" flat rounded icon="arrow_back" @click="goBack()" />
         <q-toolbar-title> Thi trắc nghiệm </q-toolbar-title>
-
         <q-btn
           flat
           dense

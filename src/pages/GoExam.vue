@@ -2,6 +2,7 @@
   <div>
     <div v-if="questions">
       <div class="flex justify-end full-width">
+        <div class="text-h6">{{ minutes }} : {{ seconds }}</div>
         <q-btn
           color="black"
           rounded
@@ -69,6 +70,7 @@
 
 <script>
 import examStaffapi from "../boot/api/examStaffs";
+import sp from "../boot/sp/support";
 export default {
   data() {
     return {
@@ -77,11 +79,13 @@ export default {
       questPerPage: 5,
       currentPage: 1,
       lastPage: 1,
-      currentQuest: 0,
       numQuest: 1,
       startQuest: 1,
       endQuest: 5,
       confirm: false,
+      minutes: 10,
+      seconds: 0,
+      timeLimit: 0,
     };
   },
   watch: {
@@ -90,7 +94,21 @@ export default {
       this.endQuest = this.questPerPage * newVal;
       console.table([this.startQuest, this.endQuest]);
     },
+    seconds(newVal) {
+      if (newVal >= 0) {
+        setTimeout(() => {
+          this.seconds--;
+        }, 1000);
+      } else {
+        this.seconds = 59;
+        this.minutes--;
+        if(this.minutes <= 0 )  {
+          console.log('het gio ') ;
+        }
+      }
+    },
   },
+  computed: {},
   methods: {
     isCheck(num) {
       let status = 0;
@@ -129,6 +147,9 @@ export default {
       }, this.questions);
       return { statuscode: 1 };
     },
+    timeToDate(date) {
+      return sp.timeToDate(date);
+    },
   },
   async created() {
     const questionRes = await examStaffapi.toExam(this.examStaffId);
@@ -139,7 +160,11 @@ export default {
       (this.numQuest - (this.numQuest % this.questPerPage)) /
         this.questPerPage +
       addpage;
+    this.minutes = questionRes.minutes-1;
   },
+  mounted(){
+    this.seconds -=1;
+  }
 };
 </script>
 

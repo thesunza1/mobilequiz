@@ -6,20 +6,34 @@
       class="my-card q-mt-md g-card-width g-border-radius"
     >
       <q-card-section>
-        <div class="text-h5 text-primary" v-html="'Tên kỳ thi: ' + specialContest.contest.name"></div>
-        <div class="text-h6">  {{timeToDate(specialContest.contest.begintime_at)}}</div>
-        <div
-          class="text-subtitle2"
-          v-html="specialContest.contest.content"
-        ></div>
-        <div class="">Ngày tạo: {{ toDate(specialContest.contest.created_at) }}</div>
+        <div class="text-h5 text-indigo-10">
+          <div class="g-first-up q-pl-sm g-question" style="display: inline-block">
+            {{ specialContest.contest.name }}
+          </div>
+        </div>
+        <div class="text-h6">
+          <q-icon name="timer" class="" />
+          {{ timeToDate(specialContest.contest.begintime_at) }}
+        </div>
+        <div>
+          <div>
+            Nội dung:
+          </div>
+          <div
+            class="g-text-indent"
+            v-html="specialContest.contest.content"
+          ></div>
+        </div>
+        <!-- <div class="">
+          Ngày tạo: {{ toDate(specialContest.contest.created_at) }}
+        </div> -->
       </q-card-section>
     </q-card>
   </div>
 </template>
 
 <script>
-import sp from '../boot/sp/support'
+import sp from "../boot/sp/support";
 export default {
   props: {
     specialContest: {
@@ -28,14 +42,14 @@ export default {
   },
   methods: {
     onlick(id) {
-      this.$router.push({name: 'examStaff', params: { contestId: id}});
+      this.$router.push({ name: "examStaff", params: { contestId: id } });
     },
-    toDate(date){
+    toDate(date) {
       return sp.toDate(date);
     },
     timeToDate(date) {
       return sp.timeToDate(date);
-    }
+    },
   },
 };
 </script>
