@@ -1,13 +1,19 @@
 <template>
   <div>
     <div v-if="questions">
-      <div class="flex justify-end full-width">
-        <div class="text-h6">{{ minutes }} : {{ seconds }}</div>
+      <div class="flex justify-between items-center full-width">
+        <q-chip
+          color="red"
+          text-color="white"
+          icon="alarm"
+          :label="`${minutes}: ${seconds}`"
+        />
         <q-btn
           color="black"
+          no-caps
           rounded
           icon="check"
-          label=" Nộp bài"
+          label="Nộp bài"
           @click="confirm = !confirm"
           class="q-mt-sm q-mr-sm"
         />
@@ -21,22 +27,20 @@
         >
           <q-card-section class="q-mt-lg" v-if="quest.order_relies == 1">
             <hr class="text-primary" />
-            Câu {{ quest.order_question }}:
+            <p class="text-subtitle2">Câu {{ quest.order_question }}:</p>
             <div class="g-first-up g-question">
               {{ quest.question.content }}
             </div>
           </q-card-section>
-          <q-card-section>
-            <div
-              :id="'relies_' + quest.id"
-              :class="{ 'g-chose': quest.chose == 1 }"
-              @click="chose(quest.id, index)"
-              class="g-relies g-first-up"
-              :val="quest.id"
-            >
-              {{ quest.relies.noidung }}
-            </div>
-          </q-card-section>
+          <div
+            :id="'relies_' + quest.id"
+            :class="{ 'g-chose': quest.chose == 1 }"
+            @click="chose(quest.id, index)"
+            class="g-relies g-first-up q-mt-sm"
+            :val="quest.id"
+          >
+            {{ quest.relies.noidung }}
+          </div>
         </div>
       </div>
     </div>
@@ -61,7 +65,7 @@
           </q-card-actions>
         </div>
         <q-card-actions align="center">
-          <q-btn flat label=" Nộp ngay" />
+          <q-btn flat @click="submitExam()" label=" Nộp ngay" />
         </q-card-actions>
       </q-card>
     </q-dialog>
@@ -102,14 +106,23 @@ export default {
       } else {
         this.seconds = 59;
         this.minutes--;
-        if(this.minutes <= 0 )  {
-          console.log('het gio ') ;
-        }
+      }
+    },
+    async minutes(newVal) {
+      if (newVal < 0) {
+        const res = await examStaffapi.submit();
       }
     },
   },
-  computed: {},
+  computed: {
+  },
   methods: {
+    async submitExam(){
+      const res = await examStaffapi.submit(this.examStaffId);
+      if(res.statuscode == 1) {
+        this.$router.go(-1);
+      }
+    },
     isCheck(num) {
       let status = 0;
       status = this.questions.findIndex(
@@ -160,11 +173,11 @@ export default {
       (this.numQuest - (this.numQuest % this.questPerPage)) /
         this.questPerPage +
       addpage;
-    this.minutes = questionRes.minutes-1;
+    this.minutes = questionRes.minutes - 1;
   },
-  mounted(){
-    this.seconds -=1;
-  }
+  mounted() {
+    this.seconds -= 1;
+  },
 };
 </script>
 

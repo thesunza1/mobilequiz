@@ -1,8 +1,5 @@
 <template>
-  <q-card
-    clickable
-    class="my-card g-border-radius g-card-width q-mt-md"
-  >
+  <q-card clickable class="my-card g-border-radius g-card-width q-mt-md">
     <q-card-section vertical class="">
       <q-card-section>
         <div class="text-h6">Ngày tạo: {{ toDate(exam?.created_at) }}</div>
@@ -21,6 +18,14 @@
           Bạn đã hết thời gian làm bài
         </div>
         <div v-else>
+          <div>
+            <div class="text-subtitle2" style="display: inline-block">
+              Hết thời gian lúc:
+            </div>
+            <div class="text-red text-subtitle2">
+              {{ timeToDate(exam.examstaffs[0].time_limit) }}
+            </div>
+          </div>
           <div class="">
             <q-btn
               color="black"
@@ -30,10 +35,6 @@
               rounded
               no-caps
             />
-          </div>
-          <div>
-            Hết thời gian lúc: {{ timeToDate(exam.examstaffs[0].time_limit) }}-
-            {{ timeToTime(exam.examstaffs[0].time_limit) }}
           </div>
         </div>
       </q-card-action>
@@ -75,7 +76,7 @@ export default {
     },
     index: {
       type: Number,
-    }
+    },
   },
   methods: {
     checkTimeLimit(timeLimit) {
@@ -91,8 +92,8 @@ export default {
       return sp.timeToTime(date);
     },
     toExam() {
-      this.$emit('choseExam',this.index);
-    }
+      this.$emit("choseExam", this.index);
+    },
   },
 };
 </script>

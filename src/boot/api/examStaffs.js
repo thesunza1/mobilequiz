@@ -24,9 +24,17 @@ async function unCheck(examQueRelId) {
   return res.data;
 }
 
+async function submit(examStaffId) {
+  const res = await api.post('exam/submit', {
+    examStaffId: examStaffId,
+  });
+  return res.data;
+}
+
 export default {
   get,
   toExam,
   check,
-  unCheck
+  unCheck,
+  submit,
 }
