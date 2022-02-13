@@ -5,28 +5,28 @@
       @click="onlick(specialContest.contest.id)"
       class="my-card q-mt-md g-card-width g-border-radius"
     >
-      <q-card-section>
-        <div class="text-h5 text-indigo-10">
-          <div class="g-first-up q-pl-sm g-question" style="display: inline-block">
+      <q-card-section class="bg-positive text-white">
+        <div class="text-h5">
+          <div
+            class="g-first-up q-pl-sm g-question"
+            style="display: inline-block"
+          >
             {{ specialContest.contest.name }}
           </div>
         </div>
+      </q-card-section>
+      <q-card-section>
         <div class="text-h6">
           <q-icon name="timer" class="" />
           {{ timeToDate(specialContest.contest.begintime_at) }}
         </div>
         <div>
-          <div>
-            Nội dung:
-          </div>
+          <div>Nội dung:</div>
           <div
             class="g-text-indent"
             v-html="specialContest.contest.content"
           ></div>
         </div>
-        <!-- <div class="">
-          Ngày tạo: {{ toDate(specialContest.contest.created_at) }}
-        </div> -->
       </q-card-section>
     </q-card>
   </div>

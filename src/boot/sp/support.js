@@ -41,7 +41,7 @@ function timeToDate(ds) {
 
 function limitTime(timeLimit) {
   const nowTime = Math.floor(new Date().getDate() / 1000)
-  return false
+  // return false
   if (timeLimit == -1) return false;
   return timeLimit > nowTime ? true : false;
 }

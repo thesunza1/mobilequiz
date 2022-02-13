@@ -111,6 +111,9 @@ export default {
     async minutes(newVal) {
       if (newVal < 0) {
         const res = await examStaffapi.submit();
+        if(res.statuscode ==1 )  {
+          this.$router.go(-1);
+        }
       }
     },
   },

@@ -10,9 +10,13 @@
       <q-pagination
         v-model="currentPage"
         :max="lastPage"
-        color="black"
+        color="primary"
+        rounded
       />
     </q-footer>
+    <div>
+      <circular-progress :val="contests"></circular-progress>
+    </div>
   </q-page>
 </template>
 
@@ -23,10 +27,12 @@ import sp from "../boot/sp/support";
 import { mapGetters, mapActions } from "vuex";
 import contestapi from "../boot/api/contest";
 import ContestRenderCard from "../components/ContestRenderCard.vue";
+import CircularProgress from "../components/CircularProgress.vue";
 
 export default defineComponent({
   components: {
     ContestRenderCard,
+    CircularProgress,
   },
   setup() {},
   name: "PageIndex",
@@ -56,6 +62,7 @@ export default defineComponent({
       // console.log(res);
     },
     async changePage(num) {
+      this.contests = [];
       const resContests = await contestapi.getPage(num);
       if (resContests.statuscode == 1) {
         this.contests = resContests.specialcontests.data;

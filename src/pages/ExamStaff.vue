@@ -1,6 +1,9 @@
 <template>
   <q-page padding>
-    <div v-if="exams">
+    <div class="full-width text-center text-h6 text-primary">
+      Danh Sách Đề Thi
+    </div>
+    <div v-if="exams.length > 0">
       <div v-for="(exam, index) in exams" :key="index">
         <div class="full-width flex flex-center">
           <exam-staff-card
@@ -37,6 +40,9 @@
         </q-card-actions>
       </q-card>
     </q-dialog>
+    <div>
+      <circular-progress :val="exams"></circular-progress>
+    </div>
   </q-page>
 </template>
 
@@ -44,6 +50,7 @@
 import examSatffapi from "../boot/api/examStaffs";
 import ExamStaffCard from "../components/ExamStaffCard.vue";
 import sp from "../boot/sp/support";
+import CircularProgress from "../components/CircularProgress.vue"
 export default {
   setup() {},
   methods: {
@@ -58,11 +65,12 @@ export default {
   },
   components: {
     ExamStaffCard,
+    CircularProgress,
   },
   data() {
     return {
       contestId: this.$route.params.contestId,
-      exams: null,
+      exams: [],
       thisExam: null,
       confirm: false,
     };

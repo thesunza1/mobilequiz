@@ -1,69 +1,74 @@
 <template>
-  <q-card clickable class="my-card g-border-radius g-card-width q-mt-md">
-    <q-card-section vertical class="">
-      <q-card-section>
-        <div class="text-h6">Ngày tạo: {{ toDate(exam?.created_at) }}</div>
-        <div class="text-subtitle">Tổng số câu: {{ exam?.questionnum }}</div>
-        <div>Người tạo: {{ exam.staff.name }}</div>
-        <div>Thời gian: {{ exam?.examtime_at }} phút</div>
-      </q-card-section>
-      <q-card-action
-        align="right"
-        v-if="exam.examstaffs[0].time_limit > 0 && exam.examstaffs[0].point < 0"
+  <q-card clickable class="my-card g-border-radius g-card-width q-mt-md" v-if="exam.examstaffs.length > 0">
+    <q-card-section class="g-chose">
+      <div class="text-h6 text-white">Ngày thi: {{ toDate(exam.created_at) }}</div>
+      <div class=" flex items-center text-white">
+        <q-icon name="timer" size="sm"  />
+        <div class="text-subtitle2">Thời gian: {{ exam.examtime_at }} phút</div>
+      </div>
+    </q-card-section>
+    <q-card-section>
+      <div class="text-subtitle">Tổng số câu: {{ exam.questionnum }}</div>
+      <div>Người tạo: {{ exam.staff.name }}</div>
+    </q-card-section>
+    <q-card-action
+      align="right"
+      v-if="exam.examstaffs[0]?.time_limit > 0 && exam.examstaffs[0].point < 0"
+    >
+      <div
+        class="text-red q-pr-sm"
+        v-if="checkTimeLimit(exam.examstaffs[0].time_limit)"
       >
-        <div
-          class="text-red"
-          v-if="checkTimeLimit(exam.examstaffs[0].time_limit)"
-        >
-          Bạn đã hết thời gian làm bài
-        </div>
-        <div v-else>
-          <div>
-            <div class="text-subtitle2" style="display: inline-block">
-              Hết thời gian lúc:
-            </div>
-            <div class="text-red text-subtitle2">
-              {{ timeToDate(exam.examstaffs[0].time_limit) }}
-            </div>
-          </div>
-          <div class="">
-            <q-btn
-              color="black"
-              icon="check"
-              label="Thi tiếp"
-              @click="toExam()"
-              rounded
-              no-caps
-            />
-          </div>
-        </div>
-      </q-card-action>
-      <q-card-action
-        align="right"
-        v-if="
-          exam?.examstaffs[0].time_limit == null
-            ? true
-            : false && exam?.examstaffs[0].point < 0
-        "
-      >
-        <!-- <div>Chưa thi</div> -->
+        Bạn đã hết thời gian làm bài
+      </div>
+      <div v-else>
         <div>
+          <div class="text-red text-subtitle2">
+            {{ timeToDate(exam.examstaffs[0].time_limit) }}
+          </div>
+        </div>
+        <div class="">
           <q-btn
             color="black"
-            label=" Bắt đầu thi"
+            icon="check"
+            label="Thi tiếp"
             @click="toExam()"
             rounded
             no-caps
           />
         </div>
-      </q-card-action>
-      <q-card-action align="right" v-if="exam.examstaffs[0].point >= 0">
-        <!-- <div class="text-positive text-subtitle2">Đã thi</div> -->
-        <div class="text-positive text-subtitle2">
-          Tổng điểm: {{ exam.examstaffs[0].point }}/10 điểm
-        </div>
-      </q-card-action>
-    </q-card-section>
+      </div>
+    </q-card-action>
+    <q-card-action
+      align="right"
+      v-if="
+        exam?.examstaffs[0].time_limit == null
+          ? true
+          : false && exam?.examstaffs[0].point < 0
+      "
+    >
+      <div>
+        <q-btn
+          color="black"
+          label=" Bắt đầu thi"
+          @click="toExam()"
+          rounded
+          no-caps
+        />
+      </div>
+    </q-card-action>
+    <q-card-actions
+      align="right"
+      class="full-width"
+      v-if="exam.examstaffs[0].point >= 0"
+    >
+      <q-chip
+        icon="campaign"
+        text-color="white"
+        color="positive"
+        :label="`${exam.examstaffs[0].point}/10 điểm`"
+      />
+    </q-card-actions>
   </q-card>
 </template>
 
