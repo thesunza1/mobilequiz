@@ -1,7 +1,7 @@
 <template>
   <div>
     <div v-if="questions">
-      <div class="flex justify-between items-center full-width">
+      <div class="flex justify-between items-center full-width fixed-top ">
         <q-chip
           color="red"
           text-color="white"
@@ -26,7 +26,7 @@
           "
         >
           <q-card-section class="q-mt-lg" v-if="quest.order_relies == 1">
-            <hr class="text-primary" />
+            <hr class="text-primary bg-positive" style="height: 3px" />
             <p class="text-subtitle2">Câu {{ quest.order_question }}:</p>
             <div class="g-first-up g-question">
               {{ quest.question.content }}
@@ -36,7 +36,7 @@
             :id="'relies_' + quest.id"
             :class="{ 'g-chose': quest.chose == 1 }"
             @click="chose(quest.id, index)"
-            class="g-relies g-first-up q-mt-sm"
+            class="g-relies g-first-up q-mt-sm q-mx-md shadow-2 q-pa-sm "
             :val="quest.id"
           >
             {{ quest.relies.noidung }}
@@ -44,8 +44,8 @@
         </div>
       </div>
     </div>
-    <q-footer class="bg-white flex flex-center">
-      <q-pagination v-model="currentPage" :max="lastPage" />
+    <q-footer class="bg-white flex flex-center q-py-sm">
+      <q-pagination v-model="currentPage" :max="lastPage" rounded />
     </q-footer>
     <q-dialog v-model="confirm" class="">
       <q-card class="g-border-radius g-card-width">
@@ -65,7 +65,7 @@
           </q-card-actions>
         </div>
         <q-card-actions align="center">
-          <q-btn flat @click="submitExam()" label=" Nộp ngay" />
+          <q-btn rounded no-caps @click="submitExam()" color="black" icon="check" label=" Nộp Ngay" />
         </q-card-actions>
       </q-card>
     </q-dialog>

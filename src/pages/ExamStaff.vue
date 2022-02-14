@@ -17,11 +17,16 @@
     <q-dialog v-model="confirm" persistent>
       <q-card v-if="thisExam" class="g-border-radius">
         <q-card-section class="row items-center">
-          <div class="text-h6 text-primary">
-            Ngày thi: {{ toDate(thisExam.created_at) }}
-          </div>
-          <div class="text-subtitle2">
-            Thời gian thi: {{ thisExam.examtime_at }} phút
+          <div>
+            <div class="text-h6 text-primary">
+              Ngày thi: {{ toDate(thisExam.created_at) }}
+            </div>
+            <div class="text-subtitle2">
+              Thời gian thi: {{ thisExam.examtime_at }} phút
+            </div>
+            <div class="">
+              Tổng số câu: {{ thisExam.questionnum }}
+            </div>
           </div>
         </q-card-section>
         <q-card-actions align="right">
@@ -50,7 +55,7 @@
 import examSatffapi from "../boot/api/examStaffs";
 import ExamStaffCard from "../components/ExamStaffCard.vue";
 import sp from "../boot/sp/support";
-import CircularProgress from "../components/CircularProgress.vue"
+import CircularProgress from "../components/CircularProgress.vue";
 export default {
   setup() {},
   methods: {

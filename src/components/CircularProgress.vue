@@ -4,7 +4,7 @@
       indeterminate
       size="50px"
       :thickness="0.2"
-      color="primary"
+      color="green"
       track-color="transparent"
       class="q-ma-md"
     />

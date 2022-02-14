@@ -11,7 +11,6 @@ const routes = [
     children: [
       { path: '', component: () => import('pages/Index.vue'), name: 'home' },
       { path: 'examStaff/:contestId', component: ExamStaff , name: 'examStaff'},
-      {path: 'toExam/:examStaffId', component: GoExam, name: 'toExam' },
     ],
     meta: {
       authentication: true,
@@ -23,6 +22,7 @@ const routes = [
     component: LoginLayout,
     children: [
       {path: 'login', component: Login , name: 'login'},
+      {path: 'toExam/:examStaffId', component: GoExam, name: 'toExam' },
     ],
     meta: {
       authentication: false,

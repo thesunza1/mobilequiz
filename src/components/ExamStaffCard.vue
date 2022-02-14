@@ -1,10 +1,16 @@
 <template>
-  <q-card clickable class="my-card g-border-radius g-card-width q-mt-md" v-if="exam.examstaffs.length > 0">
+  <q-card
+    clickable
+    class="my-card g-border-radius g-card-width q-mt-md"
+    v-if="exam.examstaffs.length > 0"
+  >
     <q-card-section class="g-chose">
-      <div class="text-h6 text-white">Ngày thi: {{ toDate(exam.created_at) }}</div>
-      <div class=" flex items-center text-white">
-        <q-icon name="timer" size="sm"  />
-        <div class="text-subtitle2">Thời gian: {{ exam.examtime_at }} phút</div>
+      <div class="text-h6 text-white">
+        Ngày thi: {{ toDate(exam.created_at) }}
+      </div>
+      <div class="flex items-center text-white">
+        <q-icon name="timer" size="sm" />
+        <div class="text-subtitle2">Thời gian thi: {{ exam.examtime_at }} phút</div>
       </div>
     </q-card-section>
     <q-card-section>
@@ -15,11 +21,14 @@
       align="right"
       v-if="exam.examstaffs[0]?.time_limit > 0 && exam.examstaffs[0].point < 0"
     >
-      <div
-        class="text-red q-pr-sm"
-        v-if="checkTimeLimit(exam.examstaffs[0].time_limit)"
-      >
-        Bạn đã hết thời gian làm bài
+      <div v-if="checkTimeLimit(exam.examstaffs[0].time_limit)">
+        <q-chip
+          color="red"
+          text-color="white"
+          icon="campaign"
+          class="q-ma-sm"
+          label="Hết thời gian"
+        />
       </div>
       <div v-else>
         <div>
@@ -30,11 +39,13 @@
         <div class="">
           <q-btn
             color="black"
-            icon="check"
+            icon="receipt"
             label="Thi tiếp"
             @click="toExam()"
+            size="md"
             rounded
             no-caps
+            class="q-ma-sm"
           />
         </div>
       </div>
@@ -53,7 +64,10 @@
           label=" Bắt đầu thi"
           @click="toExam()"
           rounded
+          icon="receipt"
+          size="md"
           no-caps
+          class="q-ma-sm"
         />
       </div>
     </q-card-action>

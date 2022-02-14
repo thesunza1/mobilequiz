@@ -40,10 +40,10 @@ function timeToDate(ds) {
 
 
 function limitTime(timeLimit) {
-  const nowTime = Math.floor(new Date().getDate() / 1000)
+  const nowTime = Math.floor(new Date() / 1000)
   // return false
   if (timeLimit == -1) return false;
-  return timeLimit > nowTime ? true : false;
+  return timeLimit > nowTime ? false : true;
 }
 
 export default {

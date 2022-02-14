@@ -3,25 +3,24 @@
     <q-card
       clickable
       @click="onlick(specialContest.contest.id)"
-      class="my-card q-mt-md g-card-width g-border-radius"
+      class="my-card q-mt-md g-card-width g-border-radius shadow-up-2"
     >
-      <q-card-section class="bg-positive text-white">
+      <q-card-section class="q-pb-none text-primary text-bold">
         <div class="text-h5">
           <div
-            class="g-first-up q-pl-sm g-question"
-            style="display: inline-block"
+            class="g-first-up g-question"
           >
             {{ specialContest.contest.name }}
           </div>
         </div>
       </q-card-section>
-      <q-card-section>
+      <q-card-section class="q-pt-sm">
         <div class="text-h6">
-          <q-icon name="timer" class="" />
-          {{ timeToDate(specialContest.contest.begintime_at) }}
+          <q-icon name="timer" class="text-positive" />
+          :{{ timeToDate(specialContest.contest.begintime_at) }}
         </div>
         <div>
-          <div>Nội dung:</div>
+          <div><q-icon name="notes"  class="text-positive" size="sm" /> <p class="text-subtitle2" style="display: inline">Lưu ý:</p></div>
           <div
             class="g-text-indent"
             v-html="specialContest.contest.content"
