@@ -1,7 +1,7 @@
 <template>
   <q-page padding>
-    <div class="full-width text-center text-h6 text-primary">
-      Danh Sách Đề Thi
+    <div class="full-width text-center text-h6 text-primary g-first-up text-bold" v-html="contest">
+
     </div>
     <div v-if="exams.length > 0">
       <div v-for="(exam, index) in exams" :key="index">
@@ -78,12 +78,14 @@ export default {
       exams: [],
       thisExam: null,
       confirm: false,
+      contest: '',
     };
   },
   async created() {
     const resExam = await examSatffapi.get(this.contestId);
     if (resExam.statuscode == 1) {
       this.exams = resExam.exams;
+      this.contest = resExam.contest;
     }
   },
 };
